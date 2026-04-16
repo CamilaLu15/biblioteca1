@@ -112,5 +112,22 @@ public class SistemaBiblioteca {
         }
         return librosEncontrados;
     }
+
+    public void listarPrestamos(String legajo){
+        System.out.println("\n --- Préstamos activos del legajo " + legajo + " ---");
+        boolean tienePrestamos = false;
+
+        for(Prestamo p : prestamosActivos){
+            if (p.getEstudiante().getLegajo().equals(legajo)) {
+                System.out.println(p);
+                tienePrestamos = true;
+            }
+        }
+
+        if (!tienePrestamos) {
+            System.out.println("El estudiante no tiene prestamos activos.");
+        }
+        System.out.println("----------------------------------------------");
+    }
     
 }
