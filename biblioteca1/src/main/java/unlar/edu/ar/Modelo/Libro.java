@@ -6,20 +6,24 @@ public class Libro {
     private String autor;
     private int anio;
     private boolean disponible;
+    private double precio;
 
+    
     public Libro(){
         
     }
 
-    public Libro(String ISBN, String titulo, String autor, int anio, boolean disponible){
+    public Libro(String ISBN, String titulo, String autor, int anio, boolean disponible, double precio){
 
         this.ISBN = ISBN;
         this.titulo = titulo;
         this.autor = autor;
         this.anio = anio;
         this.disponible = disponible;
+        this.precio = precio;
     }
 
+    
     public String getISBN() {
         return ISBN;
     }
@@ -54,6 +58,15 @@ public class Libro {
     public void setDisponible(boolean disponible){
         this.disponible = disponible;
     }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
 
 
     @Override

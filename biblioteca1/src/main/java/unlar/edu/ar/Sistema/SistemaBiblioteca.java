@@ -27,6 +27,7 @@ public class SistemaBiblioteca {
         this.estudiantes = new HashMap<>();
         this.prestamosActivos = new HashSet<>();
     }
+
     public void registrarPrestamo(String legajo, String isbn)
     throws EstudianteNoEncontradoException, LibroNoDisponibleException, LimitePrestamosExcedidoException {
 
@@ -52,6 +53,7 @@ public class SistemaBiblioteca {
         prestamosActivos.add(nuevo);
        
     }
+
     public double calcularMulta(int diasRetraso, double valorLibro){
         if (diasRetraso <= 0) return 0;
         if (diasRetraso > 30) diasRetraso = 30;
@@ -61,4 +63,42 @@ public class SistemaBiblioteca {
     public void agregarLibro (Libro libro) {catalogo.add(libro);}
     public void agregarEstudiante (Estudiante e) {estudiantes.put(e.getLegajo(),e);}
 
+    public void registrarDevolucion(String legajo, String isbn){
+        Prestamo prestamoDevuelto = null;
+
+        for(Prestamo p : prestamosActivos){
+            if (p.getEstudiante().getLegajo().equals(legajo) && 
+            p.getLibro().getISBN().equals(isbn)) {
+                prestamoDevuelto = p;
+                break;
+            }
+        }
+
+        if (prestamoDevuelto == null) {
+            System.out.println("Error: no se encontró un prestamo activo para ese legajo y libro.");
+            return;
+        }
+
+        LocalDate fechaHoy = LocalDate.now();
+        int diasRetraso = 0;
+
+        if (fechaHoy.isAfter(prestamoDevuelto.getFechaDevolucion())) {
+            diasRetraso = (int) java.time.temporal.ChronoUnit.DAYS.between(prestamoDevuelto.getFechaDevolucion(), fechaHoy);
+        }
+
+        double valorLibro = prestamoDevuelto.getLibro().getPrecio();
+        double multa = calcularMulta(diasRetraso, valorLibro);
+
+        if (multa > 0) {
+            System.out.println("Devolución tardía (" + diasRetraso+" días). Multa a abonar: $"+ multa);
+        }
+        else{
+            System.out.println("Devolución a tiempo. Sin multas.");
+        }
+
+        prestamoDevuelto.getLibro().setDisponible(true);
+        prestamosActivos.remove(prestamoDevuelto);
+        System.out.println("Libro devuelto y diponible nuevamente en el cátalogo.");
+    }
+    
 }
