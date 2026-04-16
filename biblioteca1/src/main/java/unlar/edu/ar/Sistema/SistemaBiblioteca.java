@@ -1,6 +1,5 @@
 package unlar.edu.ar.Sistema;
 
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,7 +41,7 @@ public class SistemaBiblioteca {
         Libro libro = catalogo.stream()
         .filter (l -> l.getISBN().equals(isbn))
         .findFirst()
-        .orElseThrow(null);
+        .orElse(null);
     
         if (libro == null || !libro.isDisponible()) {
             throw new LibroNoDisponibleException("Libro no disponible o inexistente");
