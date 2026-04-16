@@ -100,5 +100,17 @@ public class SistemaBiblioteca {
         prestamosActivos.remove(prestamoDevuelto);
         System.out.println("Libro devuelto y diponible nuevamente en el cátalogo.");
     }
+
+    public ArrayList<Libro> buscarLibros(String tituloParcial){
+        ArrayList<Libro> librosEncontrados = new ArrayList<>();
+        String busqueda = tituloParcial.toLowerCase();
+
+        for(Libro libro : catalogo){
+            if(libro.getTitulo().toLowerCase().contains(busqueda)){
+                librosEncontrados.add(libro);
+            }
+        }
+        return librosEncontrados;
+    }
     
 }
