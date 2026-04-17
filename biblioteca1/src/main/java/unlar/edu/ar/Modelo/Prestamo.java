@@ -55,8 +55,8 @@ public class Prestamo {
 
     @Override
     public String toString() {
-        return "Prestamo [libro = " + libro + ", estudiante = " + estudiante + ", fechaPrestamo = " + fechaPrestamo
-                + ", fechaDevolucion = " + fechaDevolucion + "]";
+        return "Prestamo: [libro = " + libro.getTitulo() + ", estudiante = " + estudiante.getNombre() + ", fecha del Prestamo = " + fechaPrestamo
+                + ", fecha de Devolucion = " + fechaDevolucion + "]";
     }
 
     @Override

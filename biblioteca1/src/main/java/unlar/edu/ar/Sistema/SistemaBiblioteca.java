@@ -49,7 +49,11 @@ public class SistemaBiblioteca {
             
         }
         libro.setDisponible(false);
-        Prestamo nuevo = new Prestamo(libro,est,LocalDate.now(),null);
+        LocalDate fechaHoy = LocalDate.now();
+        LocalDate limiteDevolucion = fechaHoy.plusDays(14);
+
+
+        Prestamo nuevo = new Prestamo(libro, est, fechaHoy, limiteDevolucion);
         prestamosActivos.add(nuevo);
        
     }

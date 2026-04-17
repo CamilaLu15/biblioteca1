@@ -2,6 +2,9 @@ package unlar.edu.ar;
 
 import unlar.edu.ar.Sistema.SistemaBiblioteca;
 import unlar.edu.ar.Modelo.*;
+
+import java.util.ArrayList;
+
 import unlar.edu.ar.Excepciones.*;
 
 public class App {
@@ -32,11 +35,18 @@ public class App {
             System.out.println("Intentando prestar el mismo libro a Maria (deberia fallar)...");
             sistema.registrarPrestamo("2002", "101"); 
 
-        } catch (LibroNoDisponibleException e) {
+        } catch (LibroNoDisponibleException | EstudianteNoEncontradoException | LimitePrestamosExcedidoException e) {
             System.out.println("Excepcion capturada: " + e.getMessage() + "\n");
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage());
         }
+
+        System.out.println("\n--- LISTADO DE PRESTAMOS ---");
+        sistema.listarPrestamos("2001");
+
+        System.out.println("\n --- PRUEBA DE DEVOLUCIÓN ---");
+        System.out.println("Juan devuelve 'Matemática I' ");
+        sistema.registrarDevolucion("2001", "101");
 
         
         // Calculamos multa para 15 días con un libro de valor $2000
@@ -48,7 +58,12 @@ public class App {
         System.out.println("Dias de retraso: " + dias);
         System.out.println("Monto de multa a pagar: $" + multaTotal);
         
-        System.out.println("\n--- LISTADO DE PRESTAMOS ---");
-        sistema.listarPrestamos("2001");
+        
+        System.out.println("\n --- Prueba de Búsqueda");
+        System.out.println("Buscando libros con la palabra 'ema'");
+        ArrayList<Libro> resultados = sistema.buscarLibros("ema");
+        for(Libro l : resultados){
+            System.out.println("- " + l.getTitulo());
+        }
     }
 }
